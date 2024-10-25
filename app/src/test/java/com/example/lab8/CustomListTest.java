@@ -5,15 +5,16 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 
 public class CustomListTest {
 
     private CustomList list;
-            public CustomList MockCityList(){
-            CustomList list = new CustomList(null, new ArrayList<>());
-            return list;
+    public CustomList MockCityList() {
+        list = new CustomList(null, new ArrayList<>());
+        return list;
     }
 
     @Before
@@ -32,10 +33,18 @@ public class CustomListTest {
     public void testHasCity() {
         list = MockCityList();
         City city = new City("Estevan", "SK");
-        assertFalse(list.hasCity(city)); // Should be false initially
-
+        assertFalse(list.hasCity(city));
         list.addCity(city);
-        assertTrue(list.hasCity(city)); // Should be true after adding
+        assertTrue(list.hasCity(city));
     }
-
+    
+    @Test
+    public void testDelete() {
+        list = MockCityList();
+        City city = new City("Regina", "Saskatchewan");
+        list.add(city);
+        Assertions.assertTrue(list.hasCity(city));
+        list.delete(city);
+        Assertions.assertFalse(list.hasCity(city));
+    }
 }
